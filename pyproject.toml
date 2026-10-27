@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vulnsla"
+version = "0.1.0"
+description = "Vulnerability remediation metrics dashboard: SLA compliance, MTTR, backlog trend, aging and expired risk exceptions."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "Vaishnavi U" }]
+dependencies = []  # standard library only
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1", "ruff==0.17.3"]
+
+[project.scripts]
+vulnsla = "vulnsla.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "BLE"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+"scripts/*" = ["S311"]  # random is fine for generating fake sample data
+"src/vulnsla/dashboard.py" = ["E501"]  # CSS and HTML template text read better unwrapped
